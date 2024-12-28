@@ -22,6 +22,15 @@ export default {
                 return defaults;
             }
 
+        },
+        isValid(value: string) {
+            if (!value) return true;
+            try {
+                JSON.parse(value);
+                return true;
+            } catch (error) {
+                return false;
+            }
         }
     },
     get<T>(target: ObjectType, path: string): T | undefined {
