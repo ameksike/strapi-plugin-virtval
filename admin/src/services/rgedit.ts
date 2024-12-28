@@ -5,9 +5,9 @@ import { PluginIcon } from '../components/PluginIcon';
 import { PLUGIN_ID } from '../pluginId';
 import { getConfig } from './config';
 
-export function registerApp(app: StrapiApp): void {
+export function registerApp(app: StrapiApp, component: string = PLUGIN_ID): void {
     app.customFields.register({
-        name: PLUGIN_ID,
+        name: component,
         pluginId: PLUGIN_ID,
         type: 'string',
         intlLabel: {
@@ -26,9 +26,9 @@ export function registerApp(app: StrapiApp): void {
     });
 }
 
-export function registerServer(strapi: Core.Strapi): void {
+export function registerServer(strapi: Core.Strapi, component: string = PLUGIN_ID): void {
     strapi.customFields.register({
-        name: PLUGIN_ID,
+        name: component,
         plugin: PLUGIN_ID,
         type: 'string',
     });
@@ -39,5 +39,3 @@ export default {
     registerApp,
     name: PLUGIN_ID
 }
-
-
