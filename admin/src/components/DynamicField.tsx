@@ -2,41 +2,49 @@ import { useParams } from 'react-router-dom';
 import { TextInput, Field } from '@strapi/design-system';
 import useFetch from '../services/useFetch';
 import { CmpAttrs } from '../models/CmpAttrs';
-
-interface Response {
-    credit: number,
-    debit: number,
-    balance: number
-}
+import utl from '../utils/utl';
 
 export default function DynamicField(attrs: any) {
-    const { error, hint, label } = attrs as CmpAttrs;
+    const { error, hint, label, attribute } = attrs as CmpAttrs;
     const { id } = useParams();
-    const { data, error: errorApi, isLoading, refetch } = useFetch<Response>(
-        `/api/transactions/${id}/balance`
-    );
+    
+    const map = utl.json.decode(attribute?.options?.fetch?.map, { [label as string]: label });
+    const body = utl.json.decode(attribute?.options?.fetch?.body, undefined);
+    const method = attribute?.options?.fetch?.method || "GET";
+    const headers = utl.json.decode(attribute?.options?.fetch?.headers, undefined);
+    const url = (attribute?.options?.fetch?.url || "").replace(new RegExp(":id", 'g'), id || "-");
+    const disabled = !attribute?.options?.ui?.editable;
 
-    console.log(">>>>>> NEW >>>>>>>>>>>>>>>>>>>", attrs);
+    if (!url) return <p>Loading...</p>;
+
+    const { data, error: errorApi, isLoading } = useFetch<any>(url, { headers, method });
+
+    console.log(">>>>>> NEW >>>>>>>>>>>>>>>>>>>", { url, map, data, body, headers, method });
+
     if (isLoading) return <p>Loading...</p>;
     if (errorApi) return <p>Error: {errorApi.message}</p>;
 
     return (
         <div>
-            <Field.Root
-                id="with_field"
-                error={error}
-                hint={hint}
-            >
-                <Field.Label>{label || "Value"}</Field.Label>
-                <TextInput
-                    placeholder="This is a content placeholder"
-                    size="M"
-                    type="text"
-                    defaultValue={data?.balance}
-                />
-                <Field.Error />
-                <Field.Hint />
-            </Field.Root >
+            {Object.keys(map).map((key: string) => (
+                <Field.Root
+                    id="with_field"
+                    error={error}
+                    hint={hint}
+                    key={key}
+                >
+                    <Field.Label>{label || "Value"}</Field.Label>
+                    <TextInput
+                        placeholder="This is a content placeholder"
+                        size="M"
+                        type="text"
+                        defaultValue={utl.get(data, map[key])}
+                        disabled={disabled}
+                    />
+                    <Field.Error />
+                    <Field.Hint />
+                </Field.Root >
+            ))}
         </div>
     );
 };
