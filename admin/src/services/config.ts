@@ -29,6 +29,19 @@ export function getConfig() {
                     id: getTranslation('basic.options.fetch.url.des'),
                     defaultMessage: 'Create a JSON to define the response mapping options. By default, it will try to use root with the same property name. Ex: { <ATTRIBUTE_NAME> : <RESPONSE_PATH> }',
                 }
+            },
+            {
+                name: 'options.fetch.defaults' as any,
+                type: 'textarea' as any,
+                intlLabel: {
+                    id: getTranslation('basic.source-url-defaults'),
+                    defaultMessage: 'Default value',
+                },
+                defaultValue: '',
+                description: {
+                    id: getTranslation('basic.options.fetch.defaults.des'),
+                    defaultMessage: "Map of default values ​​in JSON format, especially if you don't define the URL or if you want to set static values ​​without requesting anything from the server",
+                }
             }
         ],
         advanced: [

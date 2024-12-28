@@ -21,6 +21,7 @@ export interface CmpAttrs {
                 headers?: string;
                 method?: string;
                 map?: string;
+                defaults?: any
             },
             ui?: {
                 editable?: boolean

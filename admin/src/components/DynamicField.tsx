@@ -17,10 +17,15 @@ export default function DynamicField(attrs: any) {
         return utl.json.decode(attribute?.options?.fetch?.map, { [label as string]: label });
     }, [attribute?.options?.fetch?.map]);
 
+    const defaults = useMemo(() => utl.json.decode(
+        attribute?.options?.fetch?.defaults,
+        { [label as string]: "Loading external data..." }
+    ), [attribute?.options?.fetch?.defaults]);
+
     const options = useMemo(() => ({
         method: attribute?.options?.fetch?.method || "GET",
         headers: utl.json.decode(attribute?.options?.fetch?.headers, undefined),
-        body: utl.json.decode(attribute?.options?.fetch?.body, undefined),
+        body: utl.json.decode(attribute?.options?.fetch?.body, undefined)
     }), [
         attribute?.options?.fetch?.method,
         attribute?.options?.fetch?.headers,
@@ -28,10 +33,7 @@ export default function DynamicField(attrs: any) {
     ]);
 
     const disabled = !attribute?.options?.ui?.editable;
-
-    if (!url) return <p>Loading external data...</p>;
-
-    const { data, error: errorApi, isLoading } = useFetch<any>(url, options, [url, options]);
+    const { data, error: errorApi, isLoading } = url ? useFetch<any>(url, options, [url, options]) : { data: defaults };
 
     if (isLoading) return <p>Loading external data...</p>;
     if (errorApi) return <p>Error: {errorApi.message}</p>;
