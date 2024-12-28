@@ -12,15 +12,15 @@ export function registerApp(app: StrapiApp): void {
         type: 'string',
         intlLabel: {
             id: getTranslation(PLUGIN_ID + '.label'),
-            defaultMessage: 'Static Value',
+            defaultMessage: 'Virtual Value',
         },
         intlDescription: {
             id: getTranslation(PLUGIN_ID + '.description'),
-            defaultMessage: 'Static value with remote options fetching',
+            defaultMessage: 'Virtual field value with remote option for data fetching',
         },
         icon: PluginIcon,
         components: {
-            Input: async () => import(/* webpackChunkName: "StaticValue" */ '../components/StaticValue'),
+            Input: async () => import(/* webpackChunkName: "DynamicField" */ '../components/DynamicField'),
         },
         options: getConfig()
     });

@@ -9,7 +9,7 @@ interface Response {
     balance: number
 }
 
-export default function StaticValue(attrs: any) {
+export default function DynamicField(attrs: any) {
     const { error, hint, label } = attrs as CmpAttrs;
     const { id } = useParams();
     const { data, error: errorApi, isLoading, refetch } = useFetch<Response>(
