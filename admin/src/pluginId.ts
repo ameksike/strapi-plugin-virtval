@@ -1,1 +1,1 @@
-export const PLUGIN_ID = 'VirtVal';
+export const PLUGIN_ID = 'virtval';
