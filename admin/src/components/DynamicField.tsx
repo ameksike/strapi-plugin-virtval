@@ -4,6 +4,7 @@ import useFetch from '../services/useFetch';
 import { CmpAttrs } from '../models/CmpAttrs';
 import utl from '../utils/utl';
 import { useMemo } from 'react';
+import { Box } from '@strapi/design-system';
 
 export default function DynamicField(attrs: any) {
     const { error, hint, label, attribute } = attrs as CmpAttrs;
@@ -40,24 +41,25 @@ export default function DynamicField(attrs: any) {
 
     return (
         <div>
-            {Object.keys(resMap).map((key: string) => (
-                <Field.Root
-                    id="with_field"
-                    error={error}
-                    hint={hint}
-                    key={key}
-                >
-                    <Field.Label>{key || "Value"}</Field.Label>
-                    <TextInput
-                        placeholder="This is a content placeholder"
-                        size="M"
-                        type="text"
-                        defaultValue={utl.get(data, resMap[key])}
-                        disabled={disabled}
-                    />
-                    <Field.Error />
-                    <Field.Hint />
-                </Field.Root>
+            {Object.keys(resMap).map((key: string, index: number) => (
+                <Box marginBottom={4} key={`${key}_${index}`}>
+                    <Field.Root
+                        id="with_field"
+                        error={error}
+                        hint={hint}
+                    >
+                        <Field.Label>{key || "Value"}</Field.Label>
+                        <TextInput
+                            placeholder="This is a content placeholder"
+                            size="M"
+                            type="text"
+                            defaultValue={utl.get(data, resMap[key])}
+                            disabled={disabled}
+                        />
+                        <Field.Error />
+                        <Field.Hint />
+                    </Field.Root>
+                </Box>
             ))}
         </div>
     );
