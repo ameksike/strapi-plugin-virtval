@@ -18,8 +18,12 @@ export interface CmpAttrs {
             fetch?: {
                 url?: string;
                 body?: string;
-                header?: string;
+                headers?: string;
                 method?: string;
+                map?: string;
+            },
+            ui?: {
+                editable?: boolean
             }
         }
     },

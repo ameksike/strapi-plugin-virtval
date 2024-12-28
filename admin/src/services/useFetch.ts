@@ -43,39 +43,3 @@ function useFetch<T>(url: string, options?: RequestInit) {
 }
 
 export default useFetch;
-
-/**
-        import React from "react";
-        import useFetch from "./hooks/useFetch";
-
-        interface User {
-            id: number;
-            name: string;
-            email: string;
-        }
-
-        function UserList() {
-            const { data, error, isLoading, refetch } = useFetch<User[]>(
-                "https://jsonplaceholder.typicode.com/users"
-            );
-
-            if (isLoading) return <p>Loading...</p>;
-            if (error) return <p>Error: {error.message}</p>;
-
-            return (
-                <div>
-                <h1>User List</h1>
-                <button onClick={refetch}>Reload</button>
-                <ul>
-                    {data?.map((user) => (
-                        <li key={user.id}>
-                            {user.name} - {user.email}
-                        </li>
-                    ))}
-                </ul>
-                </div>
-            );
-        }
-
-        export default UserList;
- */
