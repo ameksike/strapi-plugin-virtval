@@ -1,9 +1,9 @@
 import type { StrapiApp } from '@strapi/strapi/admin';
 import type { Core } from '@strapi/strapi';
 import { getTranslation } from '../utils/getTranslation';
-import { PluginIcon } from '../components/PluginIcon';
+import { PluginIcon } from './PluginIcon';
 import { PLUGIN_ID } from '../pluginId';
-import { getConfig } from './config';
+import { getConfig } from '../services/config';
 
 export function registerApp(app: StrapiApp, component: string = PLUGIN_ID): void {
     app.customFields.register({
@@ -20,7 +20,7 @@ export function registerApp(app: StrapiApp, component: string = PLUGIN_ID): void
         },
         icon: PluginIcon,
         components: {
-            Input: async () => import(/* webpackChunkName: "DynamicField" */ '../components/DynamicField'),
+            Input: async () => import(/* webpackChunkName: "DynamicField" */ './DynamicField'),
         },
         options: getConfig()
     });
