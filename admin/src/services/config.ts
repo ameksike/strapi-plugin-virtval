@@ -1,5 +1,6 @@
 import { getTranslation } from "../utils/getTranslation";
 import * as yup from 'yup';
+import utl from '../utils/utl';
 
 export function getConfig() {
     return {
@@ -135,6 +136,16 @@ export function getConfig() {
                     },
                 ]
             }
-        ]
+        ],
+        validator: () => ({
+            fetch: yup.object().shape({
+                url: yup.string().optional(),
+                method: yup.string().oneOf(['GET', 'POST', 'PUT']).required(),
+                body: yup.string().optional().test('is-json', 'The field must be a valid JSON Format', (value) => utl.json.isValid(value as string)),
+                headers: yup.string().optional().test('is-json', 'The field must be a valid JSON Format', (value) => utl.json.isValid(value as string)),
+                defaults: yup.string().optional().test('is-json', 'The field must be a valid JSON Format', (value) => utl.json.isValid(value as string)),
+                map: yup.string().optional().test('is-json', 'The field must be a valid JSON Format', (value) => utl.json.isValid(value as string)),
+            })
+        }),
     }
 }
