@@ -1,23 +1,68 @@
 import { getTranslation } from "../utils/getTranslation";
+import * as yup from 'yup';
 
 export function getConfig() {
     return {
         base: [
             {
+                name: 'options.fetch.url' as any,
+                type: 'string' as any,
+                defaultValue: '/api/test/:id',
+                intlLabel: {
+                    id: getTranslation('basic.source-url-label'),
+                    defaultMessage: 'Fetch URL',
+                },
+                description: {
+                    id: getTranslation('basic.options.fetch.url.des'),
+                    defaultMessage: 'The string "{:id}" in the url will be replaced with the Document ID',
+                }
+            },
+            {
+                name: 'options.fetch.map' as any,
+                type: 'textarea' as any,
+                intlLabel: {
+                    id: getTranslation('basic.source-url-map'),
+                    defaultMessage: 'Response mapping',
+                },
+                defaultValue: '{}',
+                description: {
+                    id: getTranslation('basic.options.fetch.url.des'),
+                    defaultMessage: 'Create a JSON to define the response mapping options. By default, it will try to use root with the same property name. Ex: { <ATTRIBUTE_NAME> : <RESPONSE_PATH> }',
+                }
+            }
+        ],
+        advanced: [
+            {
                 sectionTitle: {
-                    // Add a "Format" settings section
                     id: getTranslation('basic.section-label-source'),
-                    defaultMessage: 'Options fetching configuration'
+                    defaultMessage: 'Fetch data options'
                 },
                 items: [
                     {
-                        name: 'options.fetch.url' as any,
-                        type: 'string' as any,
+                        name: 'options.fetch.body' as any,
+                        type: 'textarea' as any,
+                        defaultValue: '{}',
                         intlLabel: {
-                            id: getTranslation('basic.source-url-label'),
-                            defaultMessage: 'Fetch options url',
+                            id: getTranslation('basic.fetch-body-label'),
+                            defaultMessage: 'Fetch options request body',
                         },
-                        description: 'The string "{q}" in the url will be replaced with the search phrase'
+                        description: {
+                            id: getTranslation('basic.fetch-body-note'),
+                            defaultMessage: 'Custom fetch options request body in JSON format.',
+                        }
+                    },
+                    {
+                        name: 'options.fetch.headers' as any,
+                        type: 'textarea' as any,
+                        intlLabel: {
+                            id: getTranslation('basic.fetch-headers-label'),
+                            defaultMessage: 'Fetch options request custom headers',
+                        },
+                        defaultValue: '{}',
+                        description: {
+                            id: getTranslation('basic.fetch-headers-note'),
+                            defaultMessage: 'Custom fetch options request headers in JSON format.',
+                        }
                     },
                     {
                         name: 'options.fetch.method' as any,
@@ -25,7 +70,7 @@ export function getConfig() {
                         defaultValue: 'GET',
                         intlLabel: {
                             id: getTranslation('basic.fetch-method-label'),
-                            defaultMessage: 'Fetch options method',
+                            defaultMessage: 'HTTP method',
                         },
                         description: {},
                         options: [
@@ -63,29 +108,20 @@ export function getConfig() {
                         ],
                     } as any,
                     {
-                        name: 'options.fetch.body' as any,
-                        type: 'textarea' as any,
+                        name: 'options.ui.editable' as any,
+                        type: 'checkbox',
                         intlLabel: {
-                            id: getTranslation('basic.fetch-body-label'),
-                            defaultMessage: 'Fetch options request body',
-                        },
-                        description: ''
-                    },
-                    {
-                        name: 'options.fetch.headers' as any,
-                        type: 'textarea' as any,
-                        intlLabel: {
-                            id: getTranslation('basic.fetch-headers-label'),
-                            defaultMessage: 'Fetch options request custom headers',
+                            id: getTranslation('basic.editable'),
+                            defaultMessage: 'Editable field',
                         },
                         description: {
-                            id: getTranslation('basic.fetch-headers-note'),
-                            defaultMessage: 'Custom fetch options request headers in raw format, one header per line. For example:\nContent-type: application/json',
-                        }
-                    }
+                            id: 'form.attribute.item.editable.description',
+                            defaultMessage: "You won't be able to edit an entry if this field is empty",
+                        },
+                        defaultValue: false
+                    },
                 ]
             }
-        ],
-        advanced: []
+        ]
     }
 }
