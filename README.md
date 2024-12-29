@@ -177,7 +177,8 @@ Note that in the case of array or list type structures, they can be accessed thr
 
 ![multi-remote-external](./doc/multi-remote-external.jpg)
 
-Based on the following server response: 
+Based on the following server response from [https://dummyjson.com/products](https://dummyjson.com/products): 
+
 ```json
 {
     "products": [
