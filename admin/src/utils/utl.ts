@@ -4,7 +4,7 @@ export interface ObjectType {
 
 export default {
     json: {
-        encode(data: Object | undefined | null, defaults = "") {
+        encode(data: Object | undefined | null, defaults: string | undefined = "") {
             try {
                 if (!data) return defaults;
                 return JSON.stringify(data);
@@ -13,7 +13,7 @@ export default {
                 return defaults;
             }
         },
-        decode(data: string | undefined | null, defaults = {}) {
+        decode(data: string | undefined | null, defaults: Object | undefined | null = {}) {
             try {
                 if (!data) return defaults;
                 return JSON.parse(data);

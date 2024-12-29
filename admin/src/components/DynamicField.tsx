@@ -9,19 +9,15 @@ import { Box } from '@strapi/design-system';
 export default function DynamicField(attrs: any) {
     const { error, hint, label, attribute } = attrs as CmpAttrs;
     const { id } = useParams();
+    const msgNotfound = "Loading external data...";
 
-    const url = useMemo(() => {
-        return (attribute?.options?.fetch?.url || "").replace(new RegExp(":id", 'g'), id || "-");
-    }, [attribute?.options?.fetch?.url, id]);
+    const url = useMemo(() => (attribute?.options?.fetch?.url || "").replace(new RegExp(":id", 'g'), id || "-"), [attribute?.options?.fetch?.url, id]);
+    const resMap = useMemo(() => utl.json.decode(attribute?.options?.fetch?.map, { [label as string]: label }), [attribute?.options?.fetch?.map]);
 
-    const resMap = useMemo(() => {
-        return utl.json.decode(attribute?.options?.fetch?.map, { [label as string]: label });
-    }, [attribute?.options?.fetch?.map]);
-
-    const defaults = useMemo(() => utl.json.decode(
-        attribute?.options?.fetch?.defaults,
-        { [label as string]: "Loading external data..." }
-    ), [attribute?.options?.fetch?.defaults]);
+    const defaults = useMemo(() => {
+        let res = utl.json.decode(attribute?.options?.fetch?.defaults, null);
+        return typeof res === "object" ? res : { [label as string]: attribute?.options?.fetch?.defaults }
+    }, [attribute?.options?.fetch?.defaults]);
 
     const options = useMemo(() => ({
         method: attribute?.options?.fetch?.method || "GET",
@@ -33,10 +29,11 @@ export default function DynamicField(attrs: any) {
         attribute?.options?.fetch?.body,
     ]);
 
+
     const disabled = !attribute?.options?.ui?.editable;
     const { data, error: errorApi, isLoading } = url ? useFetch<any>(url, options, [url, options]) : { data: defaults };
 
-    if (isLoading) return <p>Loading external data...</p>;
+    if (isLoading) return <p>{msgNotfound}</p>;
     if (errorApi) return <p>Error: {errorApi.message}</p>;
 
     return (
@@ -53,7 +50,7 @@ export default function DynamicField(attrs: any) {
                             placeholder="This is a content placeholder"
                             size="M"
                             type="text"
-                            defaultValue={utl.get(data, resMap[key])}
+                            defaultValue={utl.get(data, resMap[key]) || msgNotfound}
                             disabled={disabled}
                         />
                         <Field.Error />
