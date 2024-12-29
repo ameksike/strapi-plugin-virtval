@@ -46,11 +46,11 @@ export default function DynamicField(attrs: any) {
                             id="with_field"
                             error={error}
                             hint={hint}
+                            width="100%"
                         >
                             <Field.Label>{key || "Value"}</Field.Label>
                             <TextInput
                                 placeholder="This is a content placeholder"
-                                size="M"
                                 type="text"
                                 defaultValue={utl.get(data, resMap[key]) ?? msgNotfound}
                                 disabled={disabled}
