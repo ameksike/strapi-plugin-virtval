@@ -21,10 +21,11 @@ export interface CmpAttrs {
                 headers?: string;
                 method?: string;
                 map?: string;
-                defaults?: any
+                defaults?: any;
             },
             ui?: {
-                editable?: boolean
+                editable?: boolean;
+                col?: number;
             }
         }
     },

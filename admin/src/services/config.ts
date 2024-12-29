@@ -86,7 +86,10 @@ export function getConfig() {
                             id: getTranslation('basic.fetch-method-label'),
                             defaultMessage: 'HTTP method',
                         },
-                        description: {},
+                        description: {
+                            id: 'form.attribute.item.method.description',
+                            defaultMessage: "HTTP method or request action.",
+                        },
                         options: [
                             {
                                 key: 'GET',
@@ -121,6 +124,19 @@ export function getConfig() {
                             },
                         ],
                     } as any,
+                    {
+                        name: 'options.ui.col' as any,
+                        type: 'string',
+                        intlLabel: {
+                            id: getTranslation('basic.col'),
+                            defaultMessage: 'Editable field',
+                        },
+                        description: {
+                            id: 'form.attribute.item.col.description',
+                            defaultMessage: "Defines the column number where the UI will split and arrange the components",
+                        },
+                        defaultValue: 1
+                    }
                     /*{
                         name: 'options.ui.editable' as any,
                         type: 'checkbox',
@@ -145,6 +161,9 @@ export function getConfig() {
                 headers: yup.string().optional().test('is-json', 'The field must be a valid JSON Format', (value) => utl.json.isValid(value as string)),
                 defaults: yup.string().optional().test('is-json', 'The field must be a valid JSON Format', (value) => utl.json.isValid(value as string)),
                 map: yup.string().optional().test('is-json', 'The field must be a valid JSON Format', (value) => utl.json.isValid(value as string)),
+            }),
+            ui: yup.object().shape({
+                col: yup.number().optional()
             })
         }),
     }
