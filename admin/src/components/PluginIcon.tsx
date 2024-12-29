@@ -1,5 +1,7 @@
 import { ManyWays } from '@strapi/icons';
+import CustomFieldIcon from './CustomFieldIcon';
 
-const PluginIcon = () => <ManyWays />;
+const PluginIcon = () => <CustomFieldIcon />;
+const ManyWaysIcon = () => <ManyWays />;
 
-export { PluginIcon };
+export { PluginIcon, ManyWaysIcon };
