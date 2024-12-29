@@ -136,13 +136,13 @@ The rendering of multiple static values involves defining static values for vari
 
 ![multi-remote-value](./doc/multi-static-value.jpg)
 
-As result:
+As a result in the frontend section:
 
 ![multi-remote-value](./doc/multi-static-value.result.jpg)
 
 ## Fetching multiple remote values
 
-Fetching multiple remote values involves displaying multiple values similar to *Rendering multiple static values* with the key difference being that the data is obtained from a request to a server. This server could be a plugin or controller within Strapi, where there is no need to specify the HTTPS protocol or the server's DNS. For example, the route could be `/api/transactions/:id/balance` where `transaction` is the Content-Type. Alternatively, it could be a call to an external server, such as `https://dummyjson.com/products`.
+Fetching multiple remote values involves displaying multiple values similar to *Rendering multiple static values* with the key difference being that the data is obtained from a request to a server. This server could be a plugin or controller within Strapi, where there is no need to specify the HTTPS protocol or the server's DNS. For example, the route could be `/api/transactions/:id/balance` where `transaction` is the Content-Type. Alternatively, it could be a call to an external server, such as [https://dummyjson.com/products](https://dummyjson.com/products).
 
 When specifying a dynamic route like `/api/transactions/:id/balance`, the :id placeholder is replaced by the document ID of the currently open collection type. This allows the search process to be customized based on the specific document being viewed. For instance, if you are viewing a transaction with ID `w29184yrkpzqaa7ahbzi65vg`, the route would automatically become `/api/transactions/w29184yrkpzqaa7ahbzi65vg/balance`, ensuring that the correct balance information is fetched for that specific transaction.
 
@@ -172,6 +172,36 @@ Suppose you have a collection type for transactions, and you want to display the
 1. Dynamic Route: `/api/transactions/:id/balance`
 2. Replacement of `:id`: If the current transaction has an ID of `w29184yrkpzqaa7ahbzi65vg`, the route becomes `/api/transactions/w29184yrkpzqaa7ahbzi65vg/balance`.
 3. Fetching Data: The system makes a request to `/api/transactions/w29184yrkpzqaa7ahbzi65vg/balance` to fetch the balance information for the transaction with ID `w29184yrkpzqaa7ahbzi65vg`.
+
+Note that in the case of array or list type structures, they can be accessed through their numeric index as if it were another property. See the following example:
+
+![multi-remote-external](./doc/multi-remote-external.jpg)
+
+Based on the following server response from [https://dummyjson.com/products](https://dummyjson.com/products): 
+
+```json
+{
+    "products": [
+        {
+            "id": 1,
+            "title": "Essence Mascara Lash Princess",
+            "reviews": [
+                {
+                    "rating": 2,
+                    "reviewerName": "John Doe"
+                },
+                {
+                    "rating": 2,
+                    "reviewerName": "Nolan Gonzalez"
+                },
+            ],
+        }
+    ]
+}
+```
+As a result in the frontend section:
+
+![multi-remote-external-result](./doc/multi-remote-external-result.jpg)
 
 This approach allows for a highly customizable and dynamic data retrieval process, ensuring that the correct information is displayed based on the specific context of the document being viewed.
 
