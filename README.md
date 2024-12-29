@@ -142,7 +142,7 @@ As a result in the frontend section:
 
 ## Fetching multiple remote values
 
-Fetching multiple remote values involves displaying multiple values similar to *Rendering multiple static values* with the key difference being that the data is obtained from a request to a server. This server could be a plugin or controller within Strapi, where there is no need to specify the HTTPS protocol or the server's DNS. For example, the route could be `/api/transactions/:id/balance` where `transaction` is the Content-Type. Alternatively, it could be a call to an external server, such as `https://dummyjson.com/products`.
+Fetching multiple remote values involves displaying multiple values similar to *Rendering multiple static values* with the key difference being that the data is obtained from a request to a server. This server could be a plugin or controller within Strapi, where there is no need to specify the HTTPS protocol or the server's DNS. For example, the route could be `/api/transactions/:id/balance` where `transaction` is the Content-Type. Alternatively, it could be a call to an external server, such as [https://dummyjson.com/products](https://dummyjson.com/products).
 
 When specifying a dynamic route like `/api/transactions/:id/balance`, the :id placeholder is replaced by the document ID of the currently open collection type. This allows the search process to be customized based on the specific document being viewed. For instance, if you are viewing a transaction with ID `w29184yrkpzqaa7ahbzi65vg`, the route would automatically become `/api/transactions/w29184yrkpzqaa7ahbzi65vg/balance`, ensuring that the correct balance information is fetched for that specific transaction.
 
