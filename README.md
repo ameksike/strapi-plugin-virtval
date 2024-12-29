@@ -136,7 +136,7 @@ The rendering of multiple static values involves defining static values for vari
 
 ![multi-remote-value](./doc/multi-static-value.jpg)
 
-As result:
+As a result in the frontend section:
 
 ![multi-remote-value](./doc/multi-static-value.result.jpg)
 
@@ -172,6 +172,35 @@ Suppose you have a collection type for transactions, and you want to display the
 1. Dynamic Route: `/api/transactions/:id/balance`
 2. Replacement of `:id`: If the current transaction has an ID of `w29184yrkpzqaa7ahbzi65vg`, the route becomes `/api/transactions/w29184yrkpzqaa7ahbzi65vg/balance`.
 3. Fetching Data: The system makes a request to `/api/transactions/w29184yrkpzqaa7ahbzi65vg/balance` to fetch the balance information for the transaction with ID `w29184yrkpzqaa7ahbzi65vg`.
+
+Note that in the case of array or list type structures, they can be accessed through their numeric index as if it were another property. See the following example:
+
+![multi-remote-external](./doc/multi-remote-external.jpg)
+
+Based on the following server response: 
+```json
+{
+    "products": [
+        {
+            "id": 1,
+            "title": "Essence Mascara Lash Princess",
+            "reviews": [
+                {
+                    "rating": 2,
+                    "reviewerName": "John Doe"
+                },
+                {
+                    "rating": 2,
+                    "reviewerName": "Nolan Gonzalez"
+                },
+            ],
+        }
+    ]
+}
+```
+As a result in the frontend section:
+
+![multi-remote-external-result](./doc/multi-remote-external-result.jpg)
 
 This approach allows for a highly customizable and dynamic data retrieval process, ensuring that the correct information is displayed based on the specific context of the document being viewed.
 
