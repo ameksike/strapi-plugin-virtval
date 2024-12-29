@@ -1,6 +1,84 @@
 # VirtVal Plugin
 Strapi plugin to add a field with a virtual or external value to an existing Content-Type.
 
+**Main Topics:**
+- Install & Configure
+- Rendering a static value 
+- Rendering a remote value 
+- Response mapping
+- Rendering multiple static values
+- Fetching multiple remote values
+- Advanced Settings 
+- Similar Plugin
+
+## Install & Configure
+To install and configure the VirtVal plugin for Strapi, follow these steps:
+1. Open your terminal and navigate to your Strapi project directory.
+2. Run the following command to install the virtval plugin:
+    ```sh
+    npm install virtval
+    ```
+3. Update the Plugin Configuration File:
+    - Navigate to the `config\plugins.ts` file in your Strapi project.
+    - Add the following code to configure the virtval plugin:
+        ```ts
+        const { PLUGIN_VIRTVAL = false } = process.env;
+
+        const plugins = {};
+
+        if (PLUGIN_VIRTVAL) {
+            plugins["virtval"] = { enabled: true };
+        }
+        export default () => (plugins);
+        ```
+    - Explanation: 
+        - The PLUGIN_VIRTVAL environment variable is used to determine whether the virtval plugin should be enabled. If this variable is set to true, the plugin will be enabled.
+        - The plugins object is used to configure Strapi plugins.
+        - If PLUGIN_VIRTVAL is true, the virtval plugin is added to the plugins object with the enabled property set to true.
+    - To enable the virtval plugin, you need to set the PLUGIN_VIRTVAL environment variable to true. This can be done in your `.env` file or directly in your environment.
+        ```sh
+        PLUGIN_VIRTVAL=true
+        ```
+    - Once the environment variable is set and the server is restarted, the virtval plugin will be enabled and ready to use.
+
+By following these steps, you can successfully install and configure the virtval plugin in your Strapi project, allowing you to take advantage of its features for rendering and managing values dynamically.        
+
+## Rendering a static value 
+
+Rendering a static value allows you to create a component that visualizes a fictitious value that does not belong to a **Content-Type**. The `"Default value"` property enables you to define the value that will be displayed on the screen, and the `"Name"` property specifies the name of the field. This approach is useful for displaying constant or placeholder information that does not change based on the content of a `Content-Type`, such as labels, headers, or static text.
+
+![static-value](./doc/static-value.jpg)
+
+As a result in the frontend section:
+
+![static-value-result](./doc/static-value-result.jpg)
+
+## Rendering a remote value 
+
+When rendering values from a server response, if the field name in your component matches a property in the server response, there is no need to specify the **"Response Mapping"**. For example, if you have a field named "balance" and the server response is `{ "balance": "-6.35" }`, the system will automatically map the "balance" field to the corresponding value in the response.
+
+![remote-value](./doc/remote-value.jpg)
+
+In such case we should receive the following server response answer:
+
+![multi-remote-value.request](./doc/multi-remote-value.request.jpg)
+
+As a result in the frontend section:
+
+![remote-value](./doc/remote-value-result.jpg)
+
+However, if the server response uses a different property name, such as `{ "total_balance": "-6.35" }`, you will need to specify the response mapping to ensure the correct value is displayed. In this case, you would define the mapping as `{"balance": "total_balance"}` to map the "balance" field in your component to the "total_balance" property in the server response.
+
+**Key Points:**
+1. Automatic Mapping:
+    - If the field name in your component matches a property in the server response, no response mapping is needed.
+    - Example: Field "balance" matches server response `{ "balance": "-6.35" }`.
+2. Manual Mapping:
+    - If the server response uses a different property name, you must specify the response mapping.
+    - Example: Field "balance" needs to map to server response `{ "total_balance": "-6.35" }`.
+    - Mapping: `{"balance": "total_balance"}`.
+
+By specifying the response mapping when necessary, you ensure that the correct data is displayed in your component, even if the server response uses different property names.
 
 ## Response mapping
 
@@ -50,6 +128,8 @@ This structure allows the system to correctly map and display the values from th
 
 ## Rendering multiple static values
 
+This component allows you to create multiple components to take advantage of a single server request for performance reasons. By doing this, you can include all the values in the frontend and dynamically create a list of components along with their respective values. In this case, it is necessary to specify the **Response Mapping** to ensure that each component correctly displays the corresponding value from the server response.
+
 The rendering of multiple static values involves defining static values for various attributes that will be represented as visual components. This allows for the predefined values to be visualized in a user interface. By setting these static values, developers can ensure that specific attributes are consistently displayed in a predetermined manner, facilitating a consistent and predictable user experience. This approach is particularly useful for displaying information that does not change frequently, such as labels, placeholders, or default text in forms and other UI elements.
 
 ![multi-remote-value](./doc/multi-static-value.jpg)
@@ -57,7 +137,6 @@ The rendering of multiple static values involves defining static values for vari
 As result:
 
 ![multi-remote-value](./doc/multi-static-value.result.jpg)
-
 
 ## Fetching multiple remote values
 
