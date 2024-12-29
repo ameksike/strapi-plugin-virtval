@@ -121,7 +121,7 @@ export function getConfig() {
                             },
                         ],
                     } as any,
-                    {
+                    /*{
                         name: 'options.ui.editable' as any,
                         type: 'checkbox',
                         intlLabel: {
@@ -133,7 +133,7 @@ export function getConfig() {
                             defaultMessage: "You won't be able to edit an entry if this field is empty",
                         },
                         defaultValue: false
-                    },
+                    },*/
                 ]
             }
         ],
