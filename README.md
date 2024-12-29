@@ -94,6 +94,40 @@ Suppose you have a collection type for transactions, and you want to display the
 
 This approach allows for a highly customizable and dynamic data retrieval process, ensuring that the correct information is displayed based on the specific context of the document being viewed.
 
+## Advanced Settings 
+Additionally, in the advanced settings section, you can specify extra options related to the body of the request, provided that the HTTP action or method is not GET. This includes defining the necessary parameters and data to be sent in the request body, which is essential for actions like POST, PUT. These details must be specified in JSON format to ensure proper structure and compatibility.
+
+![multi-remote-advanced](./doc/multi-remote-advanced.jpg)
+
+Furthermore, you can also define the options for the request headers in the same advanced settings section. Headers are crucial for providing additional information about the request, such as authentication tokens, content type, and other metadata. Like the request body, the headers must also be specified in JSON format to maintain consistency and clarity.
+
+**Key Points:**
+1. Request Body Options:
+    - Available for HTTP actions other than GET.
+    - Must be specified in JSON format.
+    - Includes parameters and data to be sent in the request body.
+    - Example:
+        ```json
+        {
+            "name": "John Doe",
+            "email": "john.doe@example.com",
+            "password": "securepassword"
+        }
+        ```
+
+2. Request Headers Options:
+    - Defined in the advanced settings section.
+    - Must be specified in JSON format.
+    - Includes authentication tokens, content type, and other metadata.
+    - Example:
+        ```json
+        {
+            "Authorization": "Bearer your_token_here",
+            "Content-Type": "application/json"
+        }
+        ```
+
+By specifying these options in JSON format, you ensure that the request is structured correctly and that all necessary information is included, making the integration with the server more robust and reliable.
 
 ## Similar Plugin
 - [Remote select: allow selecting one or several values from the remote options endpoint.](https://github.com/dmitriy-nz/strapi-plugin-remote-select/tree/main)
