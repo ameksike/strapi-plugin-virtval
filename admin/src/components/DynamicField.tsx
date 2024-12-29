@@ -31,7 +31,7 @@ export default function DynamicField(attrs: any) {
     ]);
 
     const disabled = !attribute?.options?.ui?.editable;
-    const { data, error: errorApi, isLoading } = url ? useFetch<any>(url, options, [url, options]) : { data: defaults };
+    const { data, error: errorApi, isLoading } = url ? useFetch<any>(url, options, [url, options]) : { data: defaults, isLoading: false, error: null };
 
     if (isLoading) return <p>{msgNotfound}</p>;
     if (errorApi) return <p>Error: {errorApi.message}</p>;
