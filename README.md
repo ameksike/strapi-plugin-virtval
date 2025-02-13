@@ -1,7 +1,7 @@
 # VirtVal Plugin
 Strapi plugin to add a field with a virtual or external value to an existing Content-Type.
 
-🎉 Supports Strapi version 5 🎉
+🎉 Supports Strapi version 5 🎉, [find it at Strapi Market](https://market.strapi.io/plugins/virtval).
 
 **Main Topics:**
 - Install & Configure
