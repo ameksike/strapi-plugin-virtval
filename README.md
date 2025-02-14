@@ -242,6 +242,7 @@ By specifying these options in JSON format, you ensure that the request is struc
 
 ## Similar Plugin
 - [Remote select: allow selecting one or several values from the remote options endpoint.](https://github.com/dmitriy-nz/strapi-plugin-remote-select/tree/main)
+- [strapi-plugin-dashboard](https://www.npmjs.com/package/strapi-plugin-dashboard):  A Strapi plugin for dynamic dashboards with multi-data charts (Line, Bar, Area). Edit JSON, SQL queries, and titles via a user-friendly interface. Visualize data in full-screen or delete charts effortlessly.
 
 ## References
 - [Plugin Development](./doc/Develop.md)
